@@ -51,55 +51,78 @@
             display: grid; 
             grid-template-columns: 1fr 1fr 1.4fr; 
             gap: 20px; 
-            align-items: stretch; /* Garante que as colunas tenham a mesma altura */
+            align-items: stretch;
+            height: calc(100vh - 120px); 
+            min-height: 700px;
         }
         
         /* Colunas Esquerda e Meio */
         .left-col, .mid-col {
             display: flex;
             flex-direction: column;
+            min-height: 0; 
         }
+        
         /* Painel 1 e 2 esticam para ocupar toda a coluna */
         .left-col .panel, .mid-col .panel {
             flex: 1; 
             margin-bottom: 0;
             display: flex;
             flex-direction: column;
+            min-height: 0;
         }
 
-        /* Coluna Direita (A mágica da simetria) */
+        /* Coluna Direita - AJUSTADA PARA NÃO ENCAVALAR */
         .right-col {
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Espaço entre Painel 3 e 4 */
+            gap: 20px; 
+            min-height: 0;
+            overflow-y: auto; /* Permite rolar a coluna direita se a tela for pequena */
+            padding-right: 5px;
         }
+        .right-col::-webkit-scrollbar { width: 5px; } 
+        .right-col::-webkit-scrollbar-track { background: transparent; } 
+        .right-col::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
         
         #panel3 {
-            flex: 0 0 auto; /* Painel 3 mantém tamanho natural */
+            flex: 0 0 auto; 
         }
         
         #panel4 {
-            flex: 1; /* Painel 4 ESTICA para preencher o resto do espaço vazio */
+            flex: 1 0 auto; /* Permite crescer, mas evita que encolha ao ponto de esmagar o conteúdo */
+            min-height: 300px; /* Tamanho mínimo seguro */
             margin-bottom: 0;
             display: flex;
             flex-direction: column;
         }
 
         /* Responsividade */
-        @media(max-width: 1200px) { .main-grid { grid-template-columns: 1fr 1fr; } .right-col { grid-column: span 2; } .panel { height: 500px; } }
-        @media(max-width: 800px) { .main-grid { grid-template-columns: 1fr; } .right-col { grid-column: span 1; } .panel { height: auto; } }
+        @media(max-width: 1200px) { 
+            .main-grid { grid-template-columns: 1fr 1fr; height: auto; } 
+            .right-col { grid-column: span 2; overflow-y: visible; } 
+            .panel { height: 550px; } 
+        }
+        @media(max-width: 800px) { 
+            .main-grid { grid-template-columns: 1fr; height: auto; } 
+            .right-col { grid-column: span 1; overflow-y: visible; } 
+            .panel { height: 550px; } 
+            #panel3 { height: auto; }
+        }
         
         /* ESTILO PAINEL */
         .panel { background: var(--bg-panel); border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border); position: relative; }
         .panel-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 10px; flex-shrink: 0; }
         
-        .fill-space { flex: 1; overflow-y: auto; padding-right: 5px; display: flex; flex-direction: column; min-height: 0; }
+        /* Retirado o min-height fixo que empurrava as coisas para fora */
+        .fill-space { flex: 1; overflow-y: auto; padding-right: 5px; display: block; min-height: 0; }
         .fill-space::-webkit-scrollbar { width: 6px; } .fill-space::-webkit-scrollbar-track { background: var(--bg-panel); } .fill-space::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
 
         .list-card { 
             background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; 
             padding: 10px; margin-bottom: 8px; border-left: 4px solid var(--text-muted); 
             display: flex; justify-content: space-between; align-items: center; gap: 10px; 
+            flex-shrink: 0;
         }
         .list-card.expense { border-left-color: var(--warning); } .list-card.payroll { border-left-color: var(--accent); } .list-card.contractor { border-left-color: var(--orange); }
         .list-card > div:first-child { flex: 1; min-width: 0; line-height: 1.3; margin-right: 5px; }
@@ -118,18 +141,18 @@
         .kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .kpi-card { background: var(--input-bg); border: 1px solid var(--border); padding: 10px; border-radius: 8px; text-align: center; border-bottom: 3px solid transparent; }
         .kpi-val { font-size: 1.1rem; font-weight: 800; font-family: monospace; }
-        .simulator-box { background: var(--bg-panel); border: 1px solid var(--border); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .simulator-box { background: var(--bg-panel); border: 1px solid var(--border); padding: 15px; border-radius: 12px; margin-bottom: 15px; flex-shrink: 0; }
         .sim-slider { width: 100%; margin: 10px 0; }
         .projection-table { width: 100%; margin-top: 10px; font-size: 0.9rem; border-collapse: collapse; }
         .projection-table td { padding: 5px; border-bottom: 1px solid var(--border); }
         .cost-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
         .cost-table td { padding: 8px 5px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
-        .cost-table th { padding: 5px; border-bottom: 1px solid var(--border); text-align: left; }
+        .cost-table th { padding: 5px; border-bottom: 1px solid var(--border); text-align: left; position: sticky; top: 0; background: var(--bg-panel); z-index: 10; }
         .val-col { text-align: right; font-family: monospace; }
         .row-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .btn-icon { background: transparent; color: var(--text-muted); border: none; cursor: pointer; font-size: 1rem; margin-left: 5px; transition: color 0.2s; } .btn-icon:hover { color: var(--text-main); }
         
-        .chart-container-screen { height:140px; width:100%; display:flex; justify-content:center; margin-bottom:15px; border-bottom:1px dashed var(--border); padding-bottom:10px; }
+        .chart-container-screen { height:140px; width:100%; display:flex; justify-content:center; margin-bottom:15px; border-bottom:1px dashed var(--border); padding-bottom:10px; flex-shrink: 0; }
         .bar-chart-screen { height:150px; margin-top:20px; position: relative; }
 
         .print-only-block { display: none; }
@@ -158,7 +181,7 @@
             .no-print, .btn-add-trigger, .btn, .btn-icon, .modal-overlay, .admin-btn, .simulator-box .no-print, #propSection, .chart-container-screen, .bar-chart-screen { display: none !important; }
             .header { border-bottom: 3px solid #000 !important; margin-bottom: 20px; }
             .header h1 { font-size: 22pt !important; text-transform: uppercase; color: #000 !important; }
-            .main-grid { display: block !important; }
+            .main-grid { display: block !important; height: auto !important; }
             .left-col, .mid-col, .right-col { display: block !important; width: 100% !important; margin: 0 !important; height: auto !important; }
             #panel1 { page-break-after: always !important; height: auto !important; }
             #panel2 { page-break-after: always !important; height: auto !important; }
@@ -264,10 +287,12 @@
 
             <div class="panel" id="panel4">
                 <div class="panel-title">4. Real Daily Cost Analysis</div>
-                <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:0.9rem; font-weight:bold;">Unit Breakdown (Overhead: <span id="dispOverheadDay">...</span>/day)</span>
+                <div class="fill-space">
+                    <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.9rem; font-weight:bold;">Unit Breakdown (Overhead: <span id="dispOverheadDay">...</span>/day)</span>
+                    </div>
+                    <table class="cost-table"><thead><tr><th class="no-print">Check</th><th>Name</th><th class="val-col">Real Cost/Day</th></tr></thead><tbody id="pricingBody"></tbody></table>
                 </div>
-                <table class="cost-table"><thead><tr><th class="no-print">Check</th><th>Name</th><th class="val-col">Real Cost/Day</th></tr></thead><tbody id="pricingBody"></tbody></table>
                 <div class="simulator-box" id="propSection" style="margin-top:10px; border:1px dashed #475569;">
                     <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Quick Proposal</div><input type="number" id="propDays" class="form-control" placeholder="Days" style="padding:5px; margin-bottom:5px;" oninput="runSim()">
                     <div style="display:flex; justify-content:space-between;"><span>Min Cost:</span><span id="propMin" style="color:var(--danger); font-weight:bold">$0</span></div>
