@@ -33,7 +33,7 @@
             --input-bg: #f8fafc;
         }
 
-        * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+        * { box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; }
         body { background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 20px; font-size: 14px; min-height: 100vh; overflow-y: auto; }
         .admin-btn { display: none; }
         
@@ -169,6 +169,169 @@
         .login-btn { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; font-weight: bold; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: 0.2s; }
         .log-table { width: 100%; font-size: 0.8rem; border-collapse: collapse; margin-top: 10px; } .log-table td { border-bottom: 1px solid var(--border); padding: 5px; color: var(--text-muted); }
 
+        /* LOGIN REDESIGN - ACT EXPENSES / D2 CONSISTENT STYLE */
+        .modal-overlay.login-overlay { background: #eef0f4; backdrop-filter: none; }
+        .login-card {
+            background: #f8f9fb;
+            width: 100%;
+            max-width: 430px;
+            padding: 36px 28px 30px;
+            border-radius: 34px;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            box-shadow: 0 24px 60px -36px rgba(15, 23, 42, 0.28);
+            overflow: visible;
+        }
+        .login-brand { text-align: center; margin-bottom: 14px; }
+        .login-brand-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            min-width: 0;
+            min-height: 0;
+            box-shadow: none;
+        }
+        .login-brand-badge img {
+            height: 64px;
+            max-width: 210px;
+            object-fit: contain;
+            display: block;
+        }
+        .login-title {
+            margin: 0 0 20px;
+            text-align: center;
+            font-size: 1.02rem;
+            font-weight: 800;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: #8d99ad;
+        }
+        .login-subtitle { display: none; }
+        .login-form { display: grid; gap: 18px; }
+        .login-field { text-align: left; }
+        .login-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #64748b;
+        }
+        .login-select,
+        .login-soft-input {
+            width: 100%;
+            min-width: 0;
+            padding: 1rem 1.05rem;
+            border-radius: 16px;
+            border: 1px solid #d8dfeb;
+            background: #eaf0fa;
+            outline: none;
+            font-size: 15px;
+            line-height: 1.35;
+            color: #0f172a;
+            transition: all 0.2s ease;
+        }
+        .login-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+        }
+        .login-select:focus,
+        .login-soft-input:focus {
+            border-color: #b7c4d9;
+            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.16);
+            background: #f1f5fb;
+        }
+        .login-select-wrap { position: relative; }
+        .login-select-wrap::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            pointer-events: none;
+            font-size: 0.8rem;
+        }
+        .password-shell-login { position: relative; }
+        .password-shell-login .login-soft-input { padding-right: 3.8rem; }
+        .password-toggle-login {
+            position: absolute;
+            right: 0.65rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2.45rem;
+            height: 2.45rem;
+            border-radius: 12px;
+            border: 1px solid #ccd5e3;
+            background: #dce4ef;
+            color: #8090a8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.18s ease;
+            cursor: pointer;
+        }
+        .password-toggle-login:hover {
+            background: #d4dde9;
+            color: #5f6f87;
+        }
+        .login-btn-modern {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: #091a3d;
+            color: #fff;
+            border: none;
+            font-weight: 800;
+            border-radius: 16px;
+            font-size: 0.96rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .login-btn-modern:hover {
+            background: #081632;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px -18px rgba(9, 26, 61, 0.42);
+        }
+        .login-error-modern {
+            display: none;
+            margin-top: 12px;
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(239, 68, 68, 0.16);
+            background: #fff1f2;
+            color: #b42318;
+            font-size: 0.83rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        body.light-mode .modal-overlay.login-overlay { background: #eef0f4; }
+        @media(max-width: 640px) {
+            .login-card {
+                max-width: 395px;
+                padding: 30px 18px 24px;
+                border-radius: 30px;
+            }
+            .login-brand-badge img {
+                height: 56px;
+                max-width: 190px;
+            }
+            .login-title {
+                font-size: 0.92rem;
+                letter-spacing: 0.18em;
+            }
+            .login-select,
+            .login-soft-input { font-size: 16px; }
+        }
+
         /* ==========================================================================
            IMPRESSÃO (PADRÃO MANTIDO)
            ========================================================================== */
@@ -210,8 +373,39 @@
 </head>
 <body>
 
-<div class="modal-overlay" id="loginModal">
-    <div class="modal-content"><div class="pop-header" style="justify-content:center;"><h3>ACT SYSTEM ACCESS</h3></div><div class="pop-body" style="text-align:center;"><p style="color:var(--text-muted); margin-bottom:20px;">Please identify yourself</p><select id="loginUser" class="login-input"><option value="dante">Dante Frota (CEO)</option><option value="leonardo">Leonardo (COO)</option></select><input type="password" id="loginPass" class="login-input" placeholder="Password"><button class="login-btn" onclick="attemptLogin()">ENTER SYSTEM</button><p id="loginError" style="color:var(--danger); margin-top:10px; display:none;">Invalid Password</p></div></div>
+<div class="modal-overlay login-overlay" id="loginModal">
+    <div class="login-card">
+        <div class="login-brand">
+            <div class="login-brand-badge">
+                <img src="https://lh3.googleusercontent.com/d/1Zlo-Cf7zY-jANUusmo5iwCR8ADbPu6wx" alt="ACT" onerror="this.style.display='none'">
+            </div>
+        </div>
+        <div style="text-align:center; margin-bottom:10px;">
+            <h2 class="login-title">ACT Expenses</h2>
+        </div>
+        <div class="login-form">
+            <div class="login-field">
+                <label class="login-label" for="loginUser">User</label>
+                <div class="login-select-wrap">
+                    <select id="loginUser" class="login-select">
+                        <option value="dante">Dante Frota</option>
+                        <option value="leonardo">Leonardo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="login-field">
+                <label class="login-label" for="loginPass">Password</label>
+                <div class="password-shell-login">
+                    <input type="password" id="loginPass" class="login-soft-input" placeholder="Enter your password" onkeydown="if(event.key==='Enter'){attemptLogin();}">
+                    <button type="button" class="password-toggle-login" onclick="toggleLoginPassword(this)" aria-label="Show password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <button class="login-btn-modern" onclick="attemptLogin()">Access System</button>
+        </div>
+        <div id="loginError" class="login-error-modern">Invalid password. Please try again.</div>
+    </div>
 </div>
 <div class="modal-overlay" id="adminModal" style="display:none;"><div class="modal-content" style="max-width:600px;"><div class="pop-header"><h3>ADMIN PANEL</h3><span style="cursor:pointer; font-size:1.5rem; color:var(--text-muted);" onclick="document.getElementById('adminModal').style.display='none'">×</span></div><div class="pop-body"><h4 style="color:var(--accent); margin-top:0;">Access Logs</h4><div style="max-height:200px; overflow-y:auto; background:var(--bg-body); padding:10px; border-radius:8px;"><table class="log-table" id="logTable"></table></div><h4 style="color:var(--warning); margin-top:20px;">Security Settings</h4><div class="row-inputs"><input type="text" id="newPassLeo" class="form-control" placeholder="New Pass (Leonardo)"><input type="text" id="newPassDante" class="form-control" placeholder="New Pass (Dante)"></div><button class="btn btn-primary" onclick="updatePasswords()">Update Credentials</button></div></div></div>
 
@@ -355,6 +549,8 @@
 
     window.attemptLogin = () => {
         const u = document.getElementById('loginUser').value; const p = document.getElementById('loginPass').value;
+        const loginError = document.getElementById('loginError');
+        if(loginError) loginError.style.display = 'none';
         if(authData[u] === p) {
             currentUser = u; document.getElementById('loginModal').style.display = 'none';
             document.body.classList.remove('view-only'); 
@@ -362,7 +558,17 @@
             if(u === 'dante') { document.querySelector('.admin-btn').style.display = 'inline-flex'; }
             accessLogs.unshift({ user: u, time: new Date().toLocaleString() }); if(accessLogs.length > 50) accessLogs.pop(); localStorage.setItem('act_logs', JSON.stringify(accessLogs)); renderLogs();
             setTimeout(updateChartsTheme, 500);
-        } else { document.getElementById('loginError').style.display = 'block'; }
+        } else if(loginError) {
+            loginError.style.display = 'block';
+        }
+    };
+
+    window.toggleLoginPassword = (btn) => {
+        const input = document.getElementById('loginPass');
+        if(!input) return;
+        const hidden = input.type === 'password';
+        input.type = hidden ? 'text' : 'password';
+        if(btn) btn.innerHTML = `<i class="fas ${hidden ? 'fa-eye-slash' : 'fa-eye'}"></i>`;
     };
     function renderLogs() { document.getElementById('logTable').innerHTML = accessLogs.map(l => `<tr><td>${l.time}</td><td style="color:${l.user==='dante'?'#3b82f6':'#f59e0b'}">${l.user.toUpperCase()}</td></tr>`).join(''); }
     window.updatePasswords = () => { const npL = document.getElementById('newPassLeo').value; const npD = document.getElementById('newPassDante').value; if(npL) authData.leonardo = npL; if(npD) authData.dante = npD; localStorage.setItem('act_auth', JSON.stringify(authData)); alert('Updated!'); document.getElementById('adminModal').style.display = 'none'; };
